@@ -1,0 +1,474 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCARRY – Твой Путь. Твой Стиль.</title>
+  <style>
+    /* Сброс и глобальные стили */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Arial', sans-serif; background-color: #000; color: #fff; line-height: 1.6; scroll-behavior: smooth; }
+    a { color: #fff; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Фиксированная навигация */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex; justify-content: center; align-items: center;
+      padding: 15px 0;
+      transition: background 0.3s ease;
+    }
+    nav:hover { background: rgba(0, 0, 0, 0.95); }
+    nav a {
+      margin: 0 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 8px 12px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    nav a:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.1);
+      border-radius: 5px;
+    }
+
+    /* Hero секция */
+    .hero {
+      height: 100vh;
+      background: url('https://via.placeholder.com/1920x1080/000000/ffffff?text=SCARRY') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+      animation: fadeIn 1.5s ease-in;
+      position: relative;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero h1 {
+      font-size: 4rem;
+      letter-spacing: 10px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    .hero .btn {
+      padding: 15px 30px;
+      border: 2px solid #fff;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero .btn:hover { background: #fff; color: #000; }
+
+    /* Общие стили для секций */
+    section { padding: 80px 20px; }
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: #fff;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Секция "О проекте" */
+    #about { background: #111; }
+    #about .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+    #about .about-text {
+      flex: 1 1 500px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    #about .about-img { flex: 1 1 400px; text-align: center; }
+    #about .about-img img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      animation: slideIn 1s ease-out;
+    }
+
+    /* Секция "Функционал" */
+    #features { background: #000; }
+    #features .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    #features .feature {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    #features .feature:hover { transform: translateY(-10px); }
+    #features .feature h3 { margin-bottom: 15px; font-size: 1.5rem; }
+    #features .feature p { font-size: 1rem; line-height: 1.5; }
+
+    /* Секция "Дорожная карта" */
+    #roadmap { background: #111; }
+    #roadmap .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 40px;
+    }
+    #roadmap .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #fff;
+    }
+    #roadmap .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+      padding-left: 20px;
+    }
+    #roadmap .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 5px;
+      width: 15px;
+      height: 15px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    #roadmap .timeline-item h4 { font-size: 1.3rem; margin-bottom: 5px; }
+    #roadmap .timeline-item p { font-size: 1rem; line-height: 1.5; }
+
+    /* Секция "Команда" */
+    #team { background: #000; }
+    #team .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+    #team .team-member {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    #team .team-member:hover { transform: scale(1.05); }
+    #team .team-member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #fff;
+    }
+    #team .team-member h3 { font-size: 1.2rem; margin-bottom: 5px; }
+    #team .team-member p { font-size: 0.9rem; color: #bbb; }
+
+    /* Секция "Отзывы" */
+    #testimonials { background: #111; }
+    #testimonials .testimonial-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding: 20px;
+    }
+    #testimonials .testimonial {
+      flex: 0 0 300px;
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      scroll-snap-align: start;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    #testimonials .testimonial:hover { transform: translateY(-10px); }
+    #testimonials .testimonial p { font-size: 1rem; line-height: 1.5; margin-bottom: 10px; }
+    #testimonials .testimonial span { font-size: 0.9rem; color: #bbb; }
+
+    /* Секция "Контакты" */
+    #contact { background: #000; }
+    #contact .contact-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    #contact .contact-info {
+      flex: 1 1 300px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    #contact .contact-form { flex: 1 1 300px; }
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #contact form input,
+    #contact form textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    #contact form input[type="submit"] {
+      background: #fff;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    #contact form input[type="submit"]:hover { background: #ccc; }
+
+    /* Footer */
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Адаптивность */
+    @media(max-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+      .hero p { font-size: 1.2rem; }
+      #about .about-content { flex-direction: column; }
+      nav { flex-direction: column; }
+      nav a { margin: 5px 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Навигация -->
+  <nav>
+    <a href="#hero">Главная</a>
+    <a href="#about">О проекте</a>
+    <a href="#features">Функционал</a>
+    <a href="#roadmap">Дорожная карта</a>
+    <a href="#team">Команда</a>
+    <a href="#testimonials">Отзывы</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+
+  <!-- Hero секция -->
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <h1>SCARRY</h1>
+      <p>Узнай, куда направляется твой автомобиль и делись планами с друзьями!</p>
+      <a href="#about" class="btn">Узнать больше</a>
+    </div>
+  </header>
+
+  <!-- Секция "О проекте" -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">О проекте</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>SCARRY – инновационный проект для активных и современных людей. Мы предлагаем возможность отслеживать пройденный километраж, сравнивать результаты с друзьями, отправлять приглашения на совместные заезды и многое другое. Наш сервис анализирует данные маршрутов, скорости, ускорения и даже фиксирует нарушения с помощью камер.</p>
+          <p>Разработано командой профессионалов из Петербурга, Россия, Купчино. Наша цель – сделать передвижение увлекательным и максимально удобным!</p>
+        </div>
+        <div class="about-img">
+          <img src="https://via.placeholder.com/400x300/ffffff/000000?text=SCARRY+Design" alt="SCARRY Design">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция "Функционал" -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Функционал</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <h3>Километраж</h3>
+          <p>Подсчёт пройденных километров с возможностью сравнения с друзьями.</p>
+        </div>
+        <div class="feature">
+          <h3>Приглашения</h3>
+          <p>Отправка приглашений на совместные заезды и мероприятия.</p>
+        </div>
+        <div class="feature">
+          <h3>Маршруты</h3>
+          <p>Построение маршрутов с интеграцией Яндекс, Google или Apple карт.</p>
+        </div>
+        <div class="feature">
+          <h3>GPS-Отслеживание</h3>
+          <p>Мониторинг скорости, ускорения и других параметров в реальном времени.</p>
+        </div>
+        <div class="feature">
+          <h3>Аналитика</h3>
+          <p>Сравнение данных с друзьями и подробный анализ показателей.</p>
+        </div>
+        <div class="feature">
+          <h3>Автоматизация</h3>
+          <p>Автоматическое предложение добавить в друзья при сближении автомобилей.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция "Дорожная карта" -->
+  <section id="roadmap">
+    <div class="container">
+      <h2 class="section-title">Дорожная карта</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>Этап 1: Идея и планирование</h4>
+          <p>Разработка концепции, сбор команды и начальное планирование функционала.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Этап 2: Прототипирование</h4>
+          <p>Создание дизайн-макетов, прототипов и тестирование основных функций.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Этап 3: Разработка</h4>
+          <p>Реализация модулей сервиса, интеграция с картами и GPS-технологиями.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Этап 4: Тестирование и запуск</h4>
+          <p>Финальное тестирование, устранение ошибок и запуск бета-версии.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>Этап 5: Расширение функционала</h4>
+          <p>Добавление новых возможностей и интеграция с партнёрами.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция "Команда" -->
+  <section id="team">
+    <div class="container">
+      <h2 class="section-title">Наша команда</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120/ffffff/000000?text=Team" alt="Team Member">
+          <h3>Иван Иванов</h3>
+          <p>Разработчик</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120/ffffff/000000?text=Team" alt="Team Member">
+          <h3>Мария Петрова</h3>
+          <p>Дизайнер</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120/ffffff/000000?text=Team" alt="Team Member">
+          <h3>Алексей Сидоров</h3>
+          <p>Менеджер проекта</p>
+        </div>
+        <div class="team-member">
+          <img src="https://via.placeholder.com/120/ffffff/000000?text=Team" alt="Team Member">
+          <h3>Екатерина Смирнова</h3>
+          <p>Маркетолог</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция "Отзывы" -->
+  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title">Отзывы</h2>
+      <div class="testimonial-slider">
+        <div class="testimonial">
+          <p>"SCARRY изменил мой взгляд на передвижение! Теперь я всегда знаю, куда еду, и с кем." </p>
+          <span>— Алексей, водитель</span>
+        </div>
+        <div class="testimonial">
+          <p>"Лучший сервис для отслеживания километража и планирования заездов. Рекомендую всем!"</p>
+          <span>— Марина, активный пользователь</span>
+        </div>
+        <div class="testimonial">
+          <p>"Дизайн и функционал на высшем уровне. Проект из Петербурга действительно впечатляет." </p>
+          <span>— Дмитрий, тестировщик</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Секция "Контакты" -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <h3>Свяжитесь с нами</h3>
+          <p><strong>Email:</strong> ilya5950385@yandex.ru</p>
+          <p><strong>Телефон:</strong> +7 981 984 6577</p>
+          <p><strong>Коммерческие запросы:</strong> Telegram: @Pyteec_Bebra</p>
+          <p>Мы открыты для новых идей, сотрудничества и партнерских предложений. Напишите нам – и мы обязательно свяжемся с вами!</p>
+        </div>
+        <div class="contact-form">
+          <form action="#" method="post">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="email" name="email" placeholder="Ваш Email" required>
+            <textarea name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
+            <input type="submit" value="Отправить">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 SCARRY. Все права защищены. Разработано в Петербурге, Россия, Купчино.</p>
+  </footer>
+
+  <script>
+    // Плавная прокрутка для навигационных ссылок
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
